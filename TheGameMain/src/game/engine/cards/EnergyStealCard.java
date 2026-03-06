@@ -7,4 +7,8 @@ public class EnergyStealCard extends Card{
 		super(name, description, rarity, true);
 		this.energy = energy;
 	}
+	
+	public int getEnergy() {
+		return energy;
+	}
 }

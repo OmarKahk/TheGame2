@@ -12,6 +12,21 @@ public class DoorCell extends Cell{
 		this.role = role;
 		this.energy = energy;
 		this.activated = false;
-		
+	}
+	
+	public Role getRole() {
+		return role;
+	}
+	
+	public int getEnergy() {
+		return energy;
+	}
+	
+	public boolean getActivated() {
+		return activated;
+	}
+	
+	public void setActivated(boolean activated) {
+		this.activated = activated;
 	}
 }

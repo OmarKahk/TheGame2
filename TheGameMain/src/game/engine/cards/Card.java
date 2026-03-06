@@ -13,4 +13,20 @@ public abstract class Card {
 		this.lucky = lucky;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
+	public String getDescription() {
+		return description;
+	}
+	
+	public int getRarity() {
+		return rarity;
+	}
+	
+	public boolean lucky() {
+		return lucky;
+	}
+	
 }

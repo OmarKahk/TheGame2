@@ -11,4 +11,16 @@ public class Cell {
 		this.name = name;
 		this.monster = null;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public Monster getMonster() {
+		return monster;
+	}
+	
+	public void setMonster(Monster monster) {
+		this.monster = monster;
+	}
 }
