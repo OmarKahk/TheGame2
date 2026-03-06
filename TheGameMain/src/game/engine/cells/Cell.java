@@ -1,8 +1,14 @@
 package game.engine.cells;
 
+import game.engine.monsters.Monster;
+
 public class Cell {
-	public static void main(String[] args)
-	{
-		System.out.println("cook");
+	
+	private String name;
+	public Monster monster;
+	
+	public Cell(String name) {
+		this.name = name;
+		this.monster = null;
 	}
 }
