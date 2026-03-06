@@ -1,6 +1,7 @@
 package game.engine.monsters;
 
 public class Monster {
+
 	private String name;
 	private String description;
 	private Role role;
@@ -28,5 +29,6 @@ public class Monster {
 		else
 			return 0;
 	}
+
 	
 }
