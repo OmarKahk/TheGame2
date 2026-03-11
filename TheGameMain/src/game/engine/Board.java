@@ -6,6 +6,7 @@ import game.engine.cells.Cell;
 import game.engine.monsters.Monster;
 
 public class Board {
+
 	private Cell[][] boardCells;
 	private ArrayList<Monster> stationedMonsters;
 	private ArrayList<Card> originalCards;
