@@ -22,7 +22,7 @@ public class DataLoader {
 		String line;
 		
 		while((line = br.readLine()) != null) {
-			String[] data = line.split(",");
+			String[] data = line.split("," , -1);
 			String type = data[0];
 	        String name = data[1];
 	        String description = data[2];
@@ -31,25 +31,25 @@ public class DataLoader {
 
 	        switch(type) {
 
-	            case "SwapperCard":
+	            case "SWAPPER":
 	                card = new SwapperCard(name, description, rarity);
 	                break;
 
-	            case "ShieldCard":
+	            case "SHIELD":
 	                card = new ShieldCard(name, description, rarity);
 	                break;
 
-	            case "EnergyStealCard":
+	            case "ENERGYSTEAL":
 	                int energy = Integer.parseInt(data[4]);
 	                card = new EnergyStealCard(name, description, rarity, energy);
 	                break;
 
-	            case "StartOverCard":
+	            case "STARTOVER":
 	                boolean lucky = Boolean.parseBoolean(data[4]);
 	                card = new StartOverCard(name, description, rarity, lucky);
 	                break;
 
-	            case "ConfusionCard":
+	            case "CONFUSION":
 	                int duration = Integer.parseInt(data[4]);
 	                card = new ConfusionCard(name, description, rarity, duration);
 	                break;
@@ -68,7 +68,7 @@ public class DataLoader {
 
 	    while ((line = br.readLine()) != null) {
 
-	        String[] data = line.split(",");
+	        String[] data = line.split("," , -1);
 
 	        Cell cell;
 
@@ -104,7 +104,7 @@ public class DataLoader {
 
 	    while ((line = br.readLine()) != null) {
 
-	        String[] data = line.split(",");
+	    	String[] data = line.split("," , -1);
 
 	        String type = data[0];
 	        String name = data[1];
@@ -116,19 +116,19 @@ public class DataLoader {
 
 	        switch (type) {
 
-	            case "Dasher":
+	            case "DASHER":
 	                monster = new Dasher(name, description, role, energy);
 	                break;
 
-	            case "Dynamo":
+	            case "DYNAMO":
 	                monster = new Dynamo(name, description, role, energy);
 	                break;
 	                
-	            case "MultiTasker":
+	            case "MULTITASKER":
 	                monster = new MultiTasker(name, description, role, energy);
 	                break;
 	                
-	            case "Schemer":
+	            case "SCHEMER":
 	                monster = new Schemer(name, description, role, energy);
 	                break;
 	                

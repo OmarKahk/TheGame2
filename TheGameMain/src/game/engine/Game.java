@@ -8,24 +8,52 @@ import game.engine.monsters.Monster;
 import java.util.*;
 public class Game {
 private Board board;
-private ArrayList<Monster> allMonsers;
+private ArrayList<Monster> allMonsters;
 private Monster player;
 private Monster opponent;
 private Monster current;
-	Game(Role playerRole) throws IOException
+	public Game(Role playerRole) throws IOException
 	{
-		ArrayList<Card> cards = DataLoader.readCards() ;
-		board = new Board(cards);
-		allMonsers = DataLoader.readMonsters();
-		player = selectRandomMonsterByRole(player.getRole());
-		opponent = selectRandomMonsterByRole(opponent.getRole());
+		board = new Board(DataLoader.readCards());
+		allMonsters = DataLoader.readMonsters();
+		player = selectRandomMonsterByRole(playerRole);
+		if(playerRole== Role.LAUGHER)
+			opponent = selectRandomMonsterByRole(Role.SCARER);
+		else
+			opponent = selectRandomMonsterByRole(Role.LAUGHER);
 		
 	}
 	private Monster selectRandomMonsterByRole(Role role) throws IOException
 	{
-		ArrayList<Monster> mosnters = DataLoader.readMonsters();
-		double x = mosnters.size()*(Math.random())+1 ;
-		int n = (int)x;
-		return mosnters.get(n);
+		ArrayList<Monster> monsters = new ArrayList<>();
+		for(int i = 0; i<allMonsters.size();i++)
+		{
+			if(allMonsters.get(i).getRole() == role)
+			{
+				monsters.add(allMonsters.get(i));
+			}
+		}
+		int n = (int)(Math.random()*monsters.size());
+		return monsters.get(n);
 	}
+	public Monster getCurrent() {
+		return current;
+	}
+	public void setCurrent(Monster current) {
+		this.current = current;
+	}
+	public Board getBoard() {
+		return board;
+	}
+	public ArrayList<Monster> getAllMonsters() {
+		return allMonsters;
+	}
+	public Monster getPlayer() {
+		return player;
+	}
+	public Monster getOpponent() {
+		return opponent;
+	}
+	
+	
 }
