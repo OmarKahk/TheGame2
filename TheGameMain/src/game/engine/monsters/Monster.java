@@ -76,6 +76,7 @@ public class Monster {
 	public Role getOriginalRole() {
 		return originalRole;
 	}
-
+	
+	
 	
 }

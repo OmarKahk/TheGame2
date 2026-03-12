@@ -21,9 +21,9 @@ private Monster current;
 			opponent = selectRandomMonsterByRole(Role.SCARER);
 		else
 			opponent = selectRandomMonsterByRole(Role.LAUGHER);
-		
+		current = player;
 	}
-	private Monster selectRandomMonsterByRole(Role role) throws IOException
+	private Monster selectRandomMonsterByRole(Role role) 
 	{
 		ArrayList<Monster> monsters = new ArrayList<>();
 		for(int i = 0; i<allMonsters.size();i++)
