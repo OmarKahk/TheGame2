@@ -10,15 +10,15 @@ import game.engine.*;
 
 public class DataLoader {
 	
-	String cards;
-	String cells;
-	String monsters;
+	static String CARDS_FILE_NAME = "cards.csv";
+	static String CELLS_FILE_NAME = "cells.csv";
+	static String MONSTERS_FILE_NAME = "monster.csv";
 	
 	
 	public static ArrayList<Card> readCards() throws IOException {
 		
 		ArrayList<Card> cards = new ArrayList<>();
-		BufferedReader br = new BufferedReader(new FileReader("cards.csv"));
+		BufferedReader br = new BufferedReader(new FileReader(CARDS_FILE_NAME));
 		String line;
 		
 		while((line = br.readLine()) != null) {
@@ -63,7 +63,7 @@ public class DataLoader {
 
 	    ArrayList<Cell> cells = new ArrayList<>();
 
-	    BufferedReader br = new BufferedReader(new FileReader("cells.csv"));
+	    BufferedReader br = new BufferedReader(new FileReader(CELLS_FILE_NAME));
 	    String line;
 
 	    while ((line = br.readLine()) != null) {
@@ -99,7 +99,7 @@ public class DataLoader {
 
 	    ArrayList<Monster> monsters = new ArrayList<>();
 
-	    BufferedReader br = new BufferedReader(new FileReader("monsters.csv"));
+	    BufferedReader br = new BufferedReader(new FileReader(MONSTERS_FILE_NAME));
 	    String line;
 
 	    while ((line = br.readLine()) != null) {
