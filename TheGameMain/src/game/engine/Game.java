@@ -1,4 +1,5 @@
 package game.engine;
+import java.io.*;
 
 import java.util.ArrayList;
 import game.engine.dataloader.*;
@@ -11,7 +12,7 @@ private ArrayList<Monster> allMonsers;
 private Monster player;
 private Monster opponent;
 private Monster current;
-	Game(Role playerRole) throws IOExeptions
+	Game(Role playerRole) throws IOException
 	{
 		ArrayList<Card> cards = DataLoader.readCards() ;
 		board = new Board(cards);
@@ -20,13 +21,11 @@ private Monster current;
 		opponent = selectRandomMonsterByRole(opponent.getRole());
 		
 	}
-	private Monster selectRandomMonsterByRole(Role role) throws IOExeptions
+	private Monster selectRandomMonsterByRole(Role role) throws IOException
 	{
 		ArrayList<Monster> mosnters = DataLoader.readMonsters();
 		double x = mosnters.size()*(Math.random())+1 ;
 		int n = (int)x;
 		return mosnters.get(n);
-				
-		
 	}
 }
