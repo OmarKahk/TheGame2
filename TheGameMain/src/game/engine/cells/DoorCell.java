@@ -22,7 +22,7 @@ public class DoorCell extends Cell{
 		return energy;
 	}
 	
-	public boolean getActivated() {
+	public boolean isActivated() {
 		return activated;
 	}
 	

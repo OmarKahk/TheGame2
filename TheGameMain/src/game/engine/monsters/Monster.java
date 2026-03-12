@@ -2,7 +2,7 @@ package game.engine.monsters;
 
 import game.engine.Role;
 
-public class Monster {
+public abstract class Monster {
 
 	private String name;
 	private String description;
