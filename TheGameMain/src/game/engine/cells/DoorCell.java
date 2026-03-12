@@ -6,7 +6,7 @@ public class DoorCell extends Cell implements CanisterModifier{
 	
 	private Role role;
 	private int energy;
-	public boolean activated;
+	private boolean activated;
 	
 	public DoorCell(String name, Role role, int energy) {
 		super(name);

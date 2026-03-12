@@ -42,13 +42,21 @@ public abstract class Monster implements Comparable<Monster> {
 		return energy;
 	}
 	public void setEnergy(int energy) {
+		if(energy >=0)
 		this.energy = energy;
+		else
+			this.energy = 0;
 	}
 	public int getPosition() {
 		return position;
 	}
 	public void setPosition(int position) {
-		this.position = position;
+		if (position < 0) {
+			position = 0;
+		}
+		
+		this.position = position % 100;
+		
 	}
 	public boolean isFrozen() {
 		return frozen;
