@@ -26,8 +26,6 @@ private Monster current;
 		double x = mosnters.size()*(Math.random())+1 ;
 		int n = (int)x;
 		return mosnters.get(n);
-		/*iLoveNiggers -hella
-				danielle george is a bisexual male who likes furries and femboys <3*/
 				
 		
 	}
