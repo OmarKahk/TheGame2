@@ -25,7 +25,7 @@ public abstract class Card {
 		return rarity;
 	}
 	
-	public boolean lucky() {
+	public boolean isLucky() {
 		return lucky;
 	}
 	
