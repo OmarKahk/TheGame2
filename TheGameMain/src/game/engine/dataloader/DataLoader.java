@@ -10,9 +10,9 @@ import game.engine.*;
 
 public class DataLoader {
 	
-	public static final String CARDS_FILE_NAME = "cards.csv";
-	public static final String CELLS_FILE_NAME = "cells.csv";
-	public static final String MONSTERS_FILE_NAME = "monsters.csv";
+	private static final String CARDS_FILE_NAME = "cards.csv";
+	private static final String CELLS_FILE_NAME = "cells.csv";
+	private static final String MONSTERS_FILE_NAME = "monsters.csv";
 	
 	
 	public static ArrayList<Card> readCards() throws IOException {

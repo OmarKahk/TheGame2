@@ -2,7 +2,7 @@ package game.engine.monsters;
 
 import game.engine.Role;
 
-public abstract class Monster {
+public abstract class Monster implements Comparable<Monster> {
 
 	private String name;
 	private String description;
@@ -18,11 +18,12 @@ public abstract class Monster {
 		this.name=name;
 		this.description=description;
 		this.originalRole = originalRole;
+		this.role = originalRole;
 		this.energy=energy;
 		position = 0;
 		confusionTurns=0;
 	}
-	int compareTo(Monster o)
+	public int compareTo(Monster o)
 	{
 		if(this.position>o.position)
 			return 1;
