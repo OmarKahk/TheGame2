@@ -8,4 +8,13 @@ public class Dynamo extends Monster {
 		super(name, description, role, energy);
 	}
 	
+	public void executePowerupEffect(Monster opponentMonster)
+	{
+		opponentMonster.setFrozen(true);
+	}
+	
+	public void setEnergy(int energy)
+	{
+		this.setEnergy((energy-this.getEnergy())*2 + this.getEnergy());
+	}
 }
