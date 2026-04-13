@@ -15,5 +15,8 @@ public class EnergyStealCard extends Card implements CanisterModifier {
 		return energy;
 	}
 	
-	void modifyCanisterEnergy(Monster monster, int canisterValue);
+	public void performAction(Monster player, Monster opponent)
+	{
+		
+	}
 }
