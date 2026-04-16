@@ -1,4 +1,4 @@
-package game.engine;
+	package game.engine;
 
 import java.util.ArrayList;
 
@@ -42,4 +42,15 @@ public class Board {
 	public static void setCards(ArrayList<Card> cards) {
 		Board.cards = cards;
 	}
+	private  int[]  indexToRowCol(int  index)
+	{
+		int rows = index/10 +1;
+		int cols = 0;
+		
+		
+		
+		
+		return new int[] {index%100, } ;
+	}
+	
 }
