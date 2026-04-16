@@ -92,7 +92,7 @@ public abstract class Monster implements Comparable<Monster> {
 		return this.position - other.position;
 	}
 	
-	abstract void executePowerupEffect(Monster opponentMonster);	
+	public abstract void executePowerupEffect(Monster opponentMonster);	
 	
 	public boolean isConfused()
 	 {
