@@ -1,4 +1,4 @@
-	package game.engine;
+package game.engine;
 
 import java.util.ArrayList;
 
@@ -68,7 +68,25 @@ public class Board {
 	}
 	public void  initializeBoard(ArrayList<Cell>  specialCells)
 	{
-		
+		ArrayList<Monster> stationed = getStationedMonsters();
+		boolean role = true; //true is scarer, false is laugher
+		for (int i = 0; i < 100; i++) {
+			if (i%2 == 1) {
+				String name = "" + i;
+				Role r;
+				if (role) {
+					r = Role.SCARER;
+				}else {
+					r = Role.LAUGHER;
+				}
+				DoorCell dc = new DoorCell(name, r, 100);
+				setCell(i, dc);
+				role = !role;
+				
+			}else {
+				setCell(i, specialCells.get(i));
+			}
+		}
 	}
 	private  void  setCardsByRarity()
 	{
