@@ -70,7 +70,7 @@ public class Board {
 	{
 		
 	}
-	private  void  setCardsByRarity()
+	private void setCardsByRarity()
 	{
 		ArrayList<Card> a = new ArrayList<Card>();
 		for(int i = 0;i < originalCards.size();i++)
@@ -82,8 +82,8 @@ public class Board {
 		}
 		originalCards = a;
 	}
-	public static  void  reloadCards()
+	public static void reloadCards()
 	{
-		
+		cards = originalCards;
 	}
 }
