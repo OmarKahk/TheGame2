@@ -73,4 +73,25 @@ public class Game {
 		
 	}
 	
+	
+private void switchTurn() {
+		
+	}
+	
+	private boolean checkWinCondition(Monster monster) {
+		if(getPlayer().getPosition() == 99 && getPlayer().getEnergy() >= 1000)
+			return true;
+		else
+			return false;	
+	}
+	
+	public Monster getWinner() {
+		if(checkWinCondition(getPlayer()) == true)
+			return getPlayer();
+		else if(checkWinCondition(getOpponent()) == true)
+			return getOpponent();
+		else
+			return null;
+	}
+	
 }
