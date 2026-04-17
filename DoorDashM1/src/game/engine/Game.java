@@ -1,6 +1,7 @@
 package game.engine;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -59,7 +60,7 @@ public class Game {
 	
 	private Monster getCurrentOpponent()
 	{
-		return 
+		return opponent;
 	}
 	
 	private int rollDice()
@@ -70,11 +71,13 @@ public class Game {
 	
 	public void usePowerup() throws OutOfEnergyException
 	{
-		
+		if(getCurrent().getEnergy()>Constants.POWERUP_COST)
+			getCurrent().executePowerupEffect(getCurrent());
 	}
 	
 	
-private void switchTurn() {
+	private void switchTurn() 
+	{
 		
 	}
 	
