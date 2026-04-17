@@ -75,7 +75,7 @@ public class Game {
 	
 	
 private void switchTurn() {
-		
+		getOpponent().playTurn();
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
