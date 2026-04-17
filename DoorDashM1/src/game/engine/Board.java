@@ -44,13 +44,46 @@ public class Board {
 	}
 	private  int[]  indexToRowCol(int  index)
 	{
-		int rows = index/10 +1;
-		int cols = 0;
+		int row = index/10 +1;
+		int col = 0;
+		if (row % 2 == 0) {
+            
+            col = index % 10;
+        } else {
+            
+            col = 10 - (index % 10);
+        }
 		
-		
-		
-		
-		return new int[] {index%100, } ;
+		return new int[] {row,col} ;
 	}
-	
+	private  Cell  getCell(int  index)
+	{
+		int[] a = indexToRowCol(index);
+		return boardCells[a[0]][a[1]];
+	}
+	private  void  setCell(int  index,  Cell  cell)
+	{
+		int[] a = indexToRowCol(index);
+		boardCells[a[0]][a[1]] = cell;
+	}
+	public void  initializeBoard(ArrayList<Cell>  specialCells)
+	{
+		
+	}
+	private  void  setCardsByRarity()
+	{
+		ArrayList<Card> a = new ArrayList<Card>();
+		for(int i = 0;i < originalCards.size();i++)
+		{
+			for(int j=0;j<originalCards.get(i).getRarity();j++)
+			{
+				a.add(originalCards.get(i));
+			}
+		}
+		originalCards = a;
+	}
+	public static  void  reloadCards()
+	{
+		
+	}
 }
