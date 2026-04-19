@@ -1,10 +1,12 @@
 package game.engine;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 import game.engine.dataloader.DataLoader;
+import game.engine.exceptions.OutOfEnergyException;
 import game.engine.monsters.*;
 
 public class Game {
@@ -54,6 +56,45 @@ public class Game {
 	    		.filter(m -> m.getRole() == role)
 	    		.findFirst()
 	    		.orElse(null);
+	}
+	
+	private Monster getCurrentOpponent()
+	{
+		return opponent;
+	}
+	
+	private int rollDice()
+	{
+		double x = (Math.random()*6)+1;
+		return (int)x;
+	}
+	
+	public void usePowerup() throws OutOfEnergyException
+	{
+		if(getCurrent().getEnergy()>Constants.POWERUP_COST)
+			getCurrent().executePowerupEffect(getCurrent());
+	}
+	
+	
+	private void switchTurn() 
+	{
+		
+	}
+	
+	private boolean checkWinCondition(Monster monster) {
+		if(getPlayer().getPosition() == 99 && getPlayer().getEnergy() >= 1000)
+			return true;
+		else
+			return false;	
+	}
+	
+	public Monster getWinner() {
+		if(checkWinCondition(getPlayer()) == true)
+			return getPlayer();
+		else if(checkWinCondition(getOpponent()) == true)
+			return getOpponent();
+		else
+			return null;
 	}
 	
 }
