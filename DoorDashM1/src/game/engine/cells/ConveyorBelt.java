@@ -12,8 +12,5 @@ public class ConveyorBelt extends TransportCell {
 		transport(landingMonster);
 	}
 	
-	public void transport(Monster monster) {
-		monster.setPosition(getEffect() + monster.getPosition());
-	}
 
 }

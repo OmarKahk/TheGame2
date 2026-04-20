@@ -46,15 +46,16 @@ public class Board {
 	{
 		int row = index/10 +1;
 		int col = 0;
-		if (row % 2 == 0) {
-            
-            col = index % 10;
-        } else {
-            
-            col = 10 - (index % 10);
+		if (row % 2 == 0) 
+		{
+			col = 9 - (index % 10) ;
         }
-		
-		return new int[] {row,col} ;
+		else {
+            
+            col = index%10 ;
+        }
+		 
+		return new int[] {row-1,col} ;
 	}
 	private  Cell  getCell(int  index)
 	{
@@ -107,8 +108,22 @@ public class Board {
 		}
 		originalCards = a;
 	}
+	public static  Card  drawCard()
+	{
+		if(cards.isEmpty())
+			reloadCards();
+		Card c = cards.remove(0);
+		return c;
+	}
 	public static  void  reloadCards()
 	{
-		
+		for(int i=0;i<originalCards.size();i++)
+		{
+			Card c = originalCards.get(i);
+			for(int j=0;j<c.getRarity();j++)
+			{
+				cards.add(c);
+			}
+		}
 	}
 }

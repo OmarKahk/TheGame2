@@ -67,6 +67,9 @@ public class DoorCell extends Cell implements CanisterModifier {
 				}
 			}
 		}
+		else {
+			
+		}
 	}
 
 	
