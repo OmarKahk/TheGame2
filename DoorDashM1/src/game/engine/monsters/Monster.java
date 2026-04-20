@@ -109,18 +109,22 @@ public abstract class Monster implements Comparable<Monster> {
 	
 	public final void alterEnergy(int energy)
 	{
-		if(this.isShielded() == true && energy<0)
+		if(energy<0)
 		{
-			this.setShielded(false);
+			if(this.isShielded()==true)
+				this.setShielded(false);
+			else
+				this.setEnergy((energy*2)+this.getEnergy());
 		}
-		else if(this.isShielded()== false && energy<0)
-			this.setEnergy(energy);
-		else if(this.isShielded()==true && energy<0)
+		else if(energy>0)
 		{
-			this.setShielded(false);
+			int e = this.getEnergy()+energy;
+			if(this instanceof MultiTasker)
+				e += Constants.MULTITASKER_BONUS;
+			else if(this instanceof Schemer)
+				e += Constants.SCHEMER_STEAL;
+			this.setEnergy(e);
 		}
-		else
-			this.setEnergy(energy + getEnergy());
 	}
 	
 	public void decrementConfusion()
