@@ -16,18 +16,11 @@ public class ConfusionCard extends Card {
 	}
 	public void performAction(Monster player, Monster opponent)
 	{
-		if(duration>0) 
-		{
 		Role t = player.getRole();
 		player.setRole(opponent.getRole());
 		opponent.setRole(t);
-		}
-		else
-		{
-			Role t = player.getRole();
-			player.setRole(opponent.getRole());
-			opponent.setRole(t);
-		}
+		player.setConfusionTurns(this.duration);
+		opponent.setConfusionTurns(this.duration);
 		
 	}
 	
