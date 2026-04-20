@@ -66,8 +66,8 @@ public class Game {
 	
 	private int rollDice()
 	{
-		double x = (Math.random()*6)+1;
-		return (int)x;
+		int x = (int)(Math.random()*6)+1;
+		return x;
 	}
 	
 	public void usePowerup() throws OutOfEnergyException
