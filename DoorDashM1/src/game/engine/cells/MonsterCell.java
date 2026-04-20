@@ -24,9 +24,4 @@ public class MonsterCell extends Cell {
 			this.getCellMonster().setEnergy(temp);
 		}
 	}
-	
-	
-	
-	
-
 }

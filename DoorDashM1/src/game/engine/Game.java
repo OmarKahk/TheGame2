@@ -61,7 +61,10 @@ public class Game {
 	
 	private Monster getCurrentOpponent()
 	{
-		return opponent;
+		if(current == opponent)
+			return player;
+		else 
+			return opponent;
 	}
 	
 	private int rollDice()
