@@ -61,33 +61,40 @@ public class Board {
 		int[] a = indexToRowCol(index);
 		return boardCells[a[0]][a[1]];
 	}
+	
 	private  void  setCell(int  index,  Cell  cell)
 	{
 		int[] a = indexToRowCol(index);
 		boardCells[a[0]][a[1]] = cell;
 	}
+	
 	public void  initializeBoard(ArrayList<Cell>  specialCells)
 	{
+		//initialize door cells
+		for(int i = 1; i <= 99; i+=2) {
+			setCell(i, specialCells.get(i));
+		}
+		
+		//initialize MONSTERS
 		ArrayList<Monster> stationed = getStationedMonsters();
-		boolean role = true; //true is scarer, false is laugher
-		for (int i = 0; i < 100; i++) {
-			if (i%2 == 1) {
-				String name = "" + i;
-				Role r;
-				if (role) {
-					r = Role.SCARER;
-				}else {
-					r = Role.LAUGHER;
-				}
-				DoorCell dc = new DoorCell(name, r, 100);
-				setCell(i, dc);
-				role = !role;
-				
+		for(int i = 1; i < Constants.MONSTER_CELL_INDICES.length; i++) { 
+			MonsterCell N_M_C = new MonsterCell(stationed.get(i).getName(), stationed.get(i));
+			setCell(Constants.MONSTER_CELL_INDICES[i], N_M_C);
+		}
+		
+		//initialize conveyer and contamination
+		
+		for(int i = 50; i < specialCells.size(); i++) {
+			if (i%2 == 0) {
+				setCell(Constants.CONVEYOR_CELL_INDICES[(i-50) - (i%2)], specialCells.get(i));
 			}else {
-				setCell(i, specialCells.get(i));
+				setCell(Constants.SOCK_CELL_INDICES[(i-50) - (i%2)], specialCells.get(i));
 			}
 		}
+		
 	}
+
+	
 	private  void  setCardsByRarity()
 	{
 		ArrayList<Card> a = new ArrayList<Card>();
