@@ -126,4 +126,8 @@ public class Board {
 			}
 		}
 	}
+	public void  moveMonster(Monster  currentMonster,  int  roll,  Monster  opponentMonster) throws  InvalidMoveException
+	{
+		
+	}
 }
