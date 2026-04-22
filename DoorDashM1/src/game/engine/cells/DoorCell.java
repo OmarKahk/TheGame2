@@ -70,6 +70,7 @@ public class DoorCell extends Cell implements CanisterModifier {
 	
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
 		monster.alterEnergy(canisterValue);
+		
 	}
 	
 	

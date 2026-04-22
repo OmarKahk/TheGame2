@@ -61,10 +61,13 @@ public class Game {
 	
 	private Monster getCurrentOpponent()
 	{
-		if(current == opponent)
-			return player;
+		if(current == opponent) {
+			current = player;
+			return current;
+		}
 		else 
-			return opponent;
+			current = opponent;
+			return current;
 	}
 	
 	private int rollDice()
@@ -76,6 +79,7 @@ public class Game {
 	public void usePowerup() throws OutOfEnergyException
 	{
 		if(getCurrent().getEnergy()>Constants.POWERUP_COST)
+			getCurrent().setEnergy(getCurrent().getEnergy() - 500);
 			getCurrent().executePowerupEffect(getCurrent());
 	}
 	
@@ -84,8 +88,7 @@ public class Game {
 		if(this.current.isFrozen()==true)
 		{
 			current.setFrozen(false);
-			getCurrentOpponent();
-			return;
+			switchTurn();
 		}
 		else
 		{
@@ -101,10 +104,7 @@ public class Game {
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
-		if(getPlayer().getPosition() == 99 && getPlayer().getEnergy() >= 1000)
-			return true;
-		else
-			return false;	
+		return monster.getPosition() == 99 && monster.getEnergy() >= 1000;
 	}
 	
 	public Monster getWinner() {
