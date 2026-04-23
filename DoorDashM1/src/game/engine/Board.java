@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import game.engine.cards.Card;
 import game.engine.cells.*;
+import game.engine.exceptions.*;
 import game.engine.monsters.Monster;
 
 public class Board {
@@ -17,7 +18,8 @@ public class Board {
 		stationedMonsters = new ArrayList<Monster>();
 		originalCards = readCards;
 		cards = new ArrayList<Card>();
-	}
+		setCardsByRarity() ;
+		reloadCards();	}
 	
 	public Cell[][] getBoardCells() {
 		return boardCells;
@@ -119,11 +121,29 @@ public class Board {
 	{
 		for(int i=0;i<originalCards.size();i++)
 		{
-			Card c = originalCards.get(i);
-			for(int j=0;j<c.getRarity();j++)
-			{
-				cards.add(c);
-			}
+			cards.add(originalCards.get(i));
 		}
+	}
+	public void  moveMonster(Monster  currentMonster,  int  roll,  Monster  opponentMonster) throws  InvalidMoveException
+	{
+		currentMonster.setPosition(currentMonster.getPosition()+roll);
+		Cell c = getCell(currentMonster.getPosition());
+		c.onLand(currentMonster, opponentMonster);
+		
+		if(currentMonster.getPosition()+roll == opponentMonster.getPosition())
+			throw new InvalidMoveException();
+		
+		if(currentMonster.isConfused())
+			currentMonster.setConfusionTurns(opponentMonster.getConfusionTurns()-1);
+		
+		if(opponentMonster.isConfused())
+			opponentMonster.setConfusionTurns(opponentMonster.getConfusionTurns()-1);	
+		
+		updateMonsterPositions(currentMonster,opponentMonster);
+		
+	}
+	private  void  updateMonsterPositions(Monster  player,  Monster  opponent)
+	{
+		
 	}
 }
