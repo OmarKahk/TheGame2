@@ -140,7 +140,7 @@ public class Board {
 			currentMonster.setConfusionTurns(opponentMonster.getConfusionTurns()-1);
 		
 		if(opponentMonster.isConfused())
-			opponentMonster.setConfusionTurns(opponentMonster.getConfusionTurns()-1);	
+			opponentMonster.setConfusionTurns(opponentMonster.getConfusionTurns());	
 		
 		updateMonsterPositions(currentMonster,opponentMonster);
 		
