@@ -78,9 +78,10 @@ public class Game {
 	
 	public void usePowerup() throws OutOfEnergyException
 	{
-		if(getCurrent().getEnergy()>Constants.POWERUP_COST)
+		if(getCurrent().getEnergy()>=Constants.POWERUP_COST) {
 			getCurrent().setEnergy(getCurrent().getEnergy() - 500);
-			getCurrent().executePowerupEffect(getCurrent());
+			getCurrent().executePowerupEffect(getOpponent());
+		}
 	}
 	
 	public void playTurn() throws InvalidMoveException
@@ -104,7 +105,7 @@ public class Game {
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
-		return monster.getPosition() == 99 && monster.getEnergy() >= 1000;
+		return (monster.getPosition() == 99 && monster.getEnergy() >= 1000);
 	}
 	
 	public Monster getWinner() {

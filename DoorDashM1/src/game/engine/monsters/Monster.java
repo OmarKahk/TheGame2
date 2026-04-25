@@ -106,12 +106,8 @@ public abstract class Monster implements Comparable<Monster> {
 	{
 		if(position + distance < 100)
 			this.position += distance;
-		else if(position + distance == 100)
-			position = 0;
-		else if(position + distance >= 100)
-		{
+		else
 			position = (position + distance) - 100;
-		}
 	}
 	
 	public final void alterEnergy(int energy) 

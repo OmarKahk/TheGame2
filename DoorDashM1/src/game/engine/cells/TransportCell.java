@@ -15,7 +15,7 @@ public abstract class TransportCell extends Cell {
 	}
 	
 	public void transport(Monster monster) {
-		monster.setPosition(effect);
+		monster.setPosition(monster.getPosition() + effect);
 	}
 	
 }
