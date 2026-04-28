@@ -36,45 +36,47 @@ public class DoorCell extends Cell implements CanisterModifier {
 	}
 	
 	public void onLand(Monster landingMonster, Monster OpponentMonster) {
+		if(isActivated())
+			return;
 		if(!isActivated()) {
 			if(this.role == landingMonster.getRole()) {
-				modifyCanisterEnergy(landingMonster, landingMonster.getEnergy() + this.getEnergy());
-				setActivated(true);
+				modifyCanisterEnergy(landingMonster, this.getEnergy());
 				ArrayList<Monster> a = Board.getStationedMonsters();
-				for(int i = 0; i<Board.getStationedMonsters().size(); i++) {
+				for(int i = 0; i<a.size(); i++) {
 					if(a.get(i).getRole() == landingMonster.getRole())
-						modifyCanisterEnergy(a.get(i), a.get(i).getEnergy() + this.getEnergy());
+						modifyCanisterEnergy(a.get(i), this.getEnergy());
 				}
+				setActivated(true);
 			}
 			
 			else {
-				if(landingMonster.isShielded() == true) {
+				if(landingMonster.isShielded()) {
 					landingMonster.setShielded(false);
-					ArrayList<Monster> a = Board.getStationedMonsters();
-					for(int i = 0; i<Board.getStationedMonsters().size(); i++) {
-						if(a.get(i).getRole() == landingMonster.getRole())
-							a.get(i).setShielded(false);
-					}
+					return;
 				}
 				else {
-					modifyCanisterEnergy(landingMonster, landingMonster.getEnergy() + -this.getEnergy());
-					setActivated(true);
+					modifyCanisterEnergy(landingMonster, -this.getEnergy());
 					ArrayList<Monster> a = Board.getStationedMonsters();
 					for(int i = 0; i<Board.getStationedMonsters().size(); i++) {
 						if(a.get(i).getRole() == landingMonster.getRole())
-							modifyCanisterEnergy(a.get(i), a.get(i).getEnergy() + -this.getEnergy());
+							modifyCanisterEnergy(a.get(i), -this.getEnergy());
 					}
+					setActivated(true);
 				}
 			}
-		}
-		else {
-			
 		}
 	}
 
 	
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
-		monster.setEnergy(canisterValue);
+		if(this.getRole() == monster.getRole()) {
+			monster.alterEnergy(canisterValue);
+		}
+		else if(monster.isShielded())
+			monster.setShielded(false);
+		else
+			monster.alterEnergy(canisterValue);
+		
 	}
 	
 	

@@ -25,7 +25,7 @@ public class ContaminationSock extends TransportCell implements CanisterModifier
 			if(monster.isShielded() == true) 
 				monster.setShielded(false);
 			else
-				modifyCanisterEnergy(monster, monster.getEnergy() - Constants.SLIP_PENALTY);
+				modifyCanisterEnergy(monster, -Constants.SLIP_PENALTY);
 				
 			
 	}
@@ -33,7 +33,7 @@ public class ContaminationSock extends TransportCell implements CanisterModifier
 
 	
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
-		monster.setEnergy(canisterValue);
+		monster.alterEnergy(canisterValue);
 		
 	}
 	

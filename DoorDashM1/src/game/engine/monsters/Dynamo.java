@@ -1,5 +1,6 @@
 package game.engine.monsters;
 
+import game.engine.Constants;
 import game.engine.Role;
 
 public class Dynamo extends Monster {
@@ -11,10 +12,5 @@ public class Dynamo extends Monster {
 	public void executePowerupEffect(Monster opponentMonster)
 	{
 		opponentMonster.setFrozen(true);
-	}
-	
-	public void setEnergy(int energy)
-	{
-		this.setEnergy((energy-this.getEnergy())*2 + this.getEnergy());
 	}
 }

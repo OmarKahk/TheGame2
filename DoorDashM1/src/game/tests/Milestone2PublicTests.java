@@ -3300,7 +3300,6 @@ public class Milestone2PublicTests {
 			Method checkWinCondition = Class.forName(gamePath).getDeclaredMethod("checkWinCondition", Class.forName(monsterPath));
 			checkWinCondition.setAccessible(true);
 			Object expectedOutput = checkWinCondition.invoke(game, currentPlayer);
-			
 			assertEquals("The player did not met all winning conditions yet",false,(boolean)expectedOutput);
 			
 		} catch (Exception e) {
