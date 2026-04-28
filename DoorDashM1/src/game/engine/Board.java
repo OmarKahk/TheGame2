@@ -44,21 +44,21 @@ public class Board {
 	public static void setCards(ArrayList<Card> cards) {
 		Board.cards = cards;
 	}
-	private  int[]  indexToRowCol(int  index)
-	{
-		int row = index/10 +1;
-		int col = 0;
-		if (row % 2 == 0) 
-		{
-			col = 9 - (index % 10) ;
-        }
-		else {
-            
-            col = index%10 ;
-        }
-		 
-		return new int[] {row-1,col} ;
+	private int[] indexToRowCol(int index) {
+	    int row = index / 10;
+	    int col;
+
+	    if (row % 2 == 0) {
+	        // even row → left to right
+	        col = index % 10;
+	    } else {
+	        // odd row → right to left
+	        col = 9 - (index % 10);
+	    }
+
+	    return new int[] {row, col};
 	}
+	
 	private  Cell  getCell(int  index)
 	{
 		int[] a = indexToRowCol(index);
@@ -71,32 +71,43 @@ public class Board {
 		boardCells[a[0]][a[1]] = cell;
 	}
 	
-	public void  initializeBoard(ArrayList<Cell>  specialCells)
-	{
-		//initialize door cells
-		for(int i = 1; i <= 99; i+=2) {
-			setCell(i, specialCells.get(i));
-		}
-		
-		//initialize MONSTERS
-		ArrayList<Monster> stationed = getStationedMonsters();
-		for(int i = 1; i < Constants.MONSTER_CELL_INDICES.length; i++) { 
-			MonsterCell N_M_C = new MonsterCell(stationed.get(i).getName(), stationed.get(i));
-			setCell(Constants.MONSTER_CELL_INDICES[i], N_M_C);
-		}
-		
-		//initialize conveyer and contamination
-		
-		for(int i = 50; i < specialCells.size(); i++) {
-			if (i%2 == 0) {
-				setCell(Constants.CONVEYOR_CELL_INDICES[(i-50) - (i%2)], specialCells.get(i));
-			}else {
-				setCell(Constants.SOCK_CELL_INDICES[(i-50) - (i%2)], specialCells.get(i));
-			}
-		}
-		
-	}
+	public void initializeBoard(ArrayList<Cell> specialCells) {
 
+	    // 1. Fill board with normal cells
+	    for (int i = 0; i < 100; i++) {
+	        setCell(i, new Cell("Normal"));
+	    }
+
+	    // 2. Place DoorCells (must alternate SCARER / LAUGHER)
+	    int doorPtr = 0;
+	    for (int i = 1; i < 100; i += 2) {
+	        setCell(i, specialCells.get(doorPtr++));
+	    }
+
+	    // 3. Place Transport Cells (DO NOT group by type!)
+	    int transportPtr = 50; // doors = first 50 lines in CSV
+
+	    for (int i = 0; i < Constants.CONVEYOR_CELL_INDICES.length; i++) {
+	        setCell(Constants.CONVEYOR_CELL_INDICES[i], specialCells.get(transportPtr++));
+	    }
+
+	    for (int i = 0; i < Constants.SOCK_CELL_INDICES.length; i++) {
+	        setCell(Constants.SOCK_CELL_INDICES[i], specialCells.get(transportPtr++));
+	    }
+
+	    // 4. CardCells (NOT from CSV)
+	    for (int i = 0; i < Constants.CARD_CELL_INDICES.length; i++) {
+	        setCell(Constants.CARD_CELL_INDICES[i], new CardCell("Card"));
+	    }
+
+	    // 5. MonsterCells
+	    ArrayList<Monster> stationed = getStationedMonsters();
+
+	    for (int i = 0; i < Constants.MONSTER_CELL_INDICES.length; i++) {
+	        MonsterCell mc = new MonsterCell("Monster", stationed.get(i));
+	        setCell(Constants.MONSTER_CELL_INDICES[i], mc);
+	    }
+	}
 	
 	private  void  setCardsByRarity()
 	{
