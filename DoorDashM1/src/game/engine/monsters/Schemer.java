@@ -32,16 +32,12 @@ public class Schemer extends Monster {
 	 
 	 public void executePowerupEffect(Monster opponentMonster)
 	 {
-		 
-		
-			int total = 0;
+		 int total = 0;
 		 total += stealEnergyFrom(opponentMonster);
 		 for(int i = 0; i<Board.getStationedMonsters().size();i++)
 		 {
 			 total += stealEnergyFrom((Monster)Board.getStationedMonsters().get(i));
 		 }
 		 this.alterEnergy(total);
-		 
-		
-	}
+	 }
 }
