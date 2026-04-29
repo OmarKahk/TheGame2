@@ -26,7 +26,7 @@ public class MultiTasker extends Monster {
 			this.normalSpeedTurns--;
 		}
 		else
-			super.move(distance*(1/2));
+			super.move(distance/2);
 	}
 	
 	public void setEnergy(int energy)
