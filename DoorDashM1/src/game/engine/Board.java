@@ -71,7 +71,42 @@ public class Board {
 		boardCells[a[0]][a[1]] = cell;
 	}
 	
+<<<<<<< Updated upstream
 	public void initializeBoard(ArrayList<Cell> specialCells) {
+=======
+	public void  initializeBoard(ArrayList<Cell>  specialCells)
+	{
+		for(int i = 0; i < 100; i++) {
+			setCell(i, specialCells.get(i));
+		}
+	
+		ArrayList<Monster> stationed = getStationedMonsters();
+		for(int i = 0; i < Constants.MONSTER_CELL_INDICES.length; i++) { 
+			if(stationedMonsters!=null) {
+			MonsterCell N_M_C = new MonsterCell(stationed.get(i).getName(), stationed.get(i));
+			setCell(Constants.MONSTER_CELL_INDICES[i], N_M_C);
+			}
+		}
+		
+		int index = 0;
+		
+		for(int i = 0; i < Constants.CARD_CELL_INDICES.length; i++) {
+			
+				setCell(Constants.CARD_CELL_INDICES[i], specialCells.get(index++));
+		}
+		
+		for(int i = 0; i < Constants.CONVEYOR_CELL_INDICES.length;i++)
+		{
+			setCell(Constants.CONVEYOR_CELL_INDICES[i], specialCells.get(index++));
+		}
+		
+		for(int i = 0; i < Constants.SOCK_CELL_INDICES.length;i++)
+		{
+			setCell(Constants.SOCK_CELL_INDICES[i], specialCells.get(index++));
+		}
+		
+	}
+>>>>>>> Stashed changes
 
 	    // 1. Fill board with normal cells
 	    for (int i = 0; i < 100; i++) {
