@@ -71,8 +71,14 @@ public class Game {
 	
 	public void usePowerup() throws OutOfEnergyException
 	{
+		boolean f = false;
 		if(getCurrent().getEnergy()>Constants.POWERUP_COST)
+		{
+			f = true;
 			getCurrent().executePowerupEffect(getCurrent());
+		}
+		if(f)
+			getCurrent().setEnergy(getCurrent().getEnergy()-Constants.POWERUP_COST);
 	}
 	
 	
