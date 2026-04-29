@@ -1,6 +1,5 @@
 package game.engine.monsters;
 
-import game.engine.Constants;
 import game.engine.Role;
 
 public class Dasher extends Monster {
@@ -32,6 +31,6 @@ public class Dasher extends Monster {
 	
 	public void executePowerupEffect(Monster opponentMonster)
 	{
-			this.setMomentumTurns(3);
+		this.setMomentumTurns(3);
 	}
 }
