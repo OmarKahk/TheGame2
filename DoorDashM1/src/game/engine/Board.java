@@ -153,6 +153,30 @@ public class Board {
 	}
 	private  void  updateMonsterPositions(Monster  player,  Monster  opponent)
 	{
+		for (int i = 0; i < boardCells.length; i++) {
+	        for (int j = 0; j < boardCells[i].length; j++) {
+	            boardCells[i][j].setMonster(null);
+	        }
+	    }
 		
+		int playerPos = player.getPosition();
+	    int row = playerPos / 10;
+	    int col = playerPos % 10;
+
+	    if (row % 2 == 1) {
+	        col = 10 - 1 - col;
+	    }
+	    
+	    boardCells[row][col].setMonster(player);
+	    
+	    int opponentPos = opponent.getPosition();
+	    int opponentRow = opponentPos / 10;
+	    int opponentCol = opponentPos % 10;
+
+	    if (opponentRow % 2 == 1) {
+	        opponentCol = 10 - 1 - opponentCol;
+	    }
+
+	    boardCells[opponentRow][opponentCol].setMonster(opponent);
 	}
 }

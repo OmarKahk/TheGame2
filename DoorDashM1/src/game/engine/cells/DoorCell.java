@@ -46,7 +46,6 @@ public class DoorCell extends Cell implements CanisterModifier {
 					if(a.get(i).getRole() == landingMonster.getRole())
 						modifyCanisterEnergy(a.get(i), this.getEnergy());
 				}
-				setActivated(true);
 			}
 			
 			else {
@@ -54,16 +53,14 @@ public class DoorCell extends Cell implements CanisterModifier {
 					landingMonster.setShielded(false);
 					return;
 				}
-				else {
 					modifyCanisterEnergy(landingMonster, -this.getEnergy());
 					ArrayList<Monster> a = Board.getStationedMonsters();
 					for(int i = 0; i<Board.getStationedMonsters().size(); i++) {
 						if(a.get(i).getRole() == landingMonster.getRole())
 							modifyCanisterEnergy(a.get(i), -this.getEnergy());
 					}
-					setActivated(true);
-				}
 			}
+			setActivated(true);
 		}
 	}
 
