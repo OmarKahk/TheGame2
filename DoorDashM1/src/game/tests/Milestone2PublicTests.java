@@ -2949,6 +2949,7 @@ public class Milestone2PublicTests {
 			Method getPosition = Class.forName(monsterPath).getDeclaredMethod("getPosition");
 			Object actualPosition = getPosition.invoke(dasherMonster);
 			
+			assertEquals("Landing on a contamination sock cell should cause the monster to slip back a number of steps equal to the cell's effect",expectedPosition,actualPosition);
 			
 			//get monster's shield
 			Method isShielded = Class.forName(monsterPath).getDeclaredMethod("isShielded");
@@ -3300,6 +3301,7 @@ public class Milestone2PublicTests {
 			Method checkWinCondition = Class.forName(gamePath).getDeclaredMethod("checkWinCondition", Class.forName(monsterPath));
 			checkWinCondition.setAccessible(true);
 			Object expectedOutput = checkWinCondition.invoke(game, currentPlayer);
+			
 			assertEquals("The player did not met all winning conditions yet",false,(boolean)expectedOutput);
 			
 		} catch (Exception e) {

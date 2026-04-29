@@ -111,39 +111,49 @@ public abstract class Monster implements Comparable<Monster> {
 			position = (position + distance) - 100;
 	}
 	
-	public final void alterEnergy(int energy) 
-	{
-		if(this.isShielded() && energy<0)
-		{
-			this.setShielded(false);
-			return;
-		}
-		if(this instanceof Dynamo)
-		{
-			if(energy*2+this.getEnergy()<0)
-				this.setEnergy(0);
-			else
-				this.setEnergy(energy*2+this.getEnergy());
-		}
-		else if(this instanceof MultiTasker) {
-			if(this.getEnergy()+200+energy<0)
-				this.setEnergy(0);
-			else
-				this.setEnergy(this.getEnergy()+200 + energy);
-		}
-		
-		else if(this instanceof Schemer) {
-			if(energy + 10 + this.getEnergy()<0)
-				this.setEnergy(0);
-			else
-				this.setEnergy(energy + 10 + this.getEnergy());
-		}
-		else {
-			if(energy+this.getEnergy()<0) 
-				this.setEnergy(0);
-			else
-				this.setEnergy(energy+this.getEnergy());
-		}
+	public final void alterEnergy(int energy) {
+
+	    if (energy < 0) {
+	        if (isShielded()) {
+	            setShielded(false);
+	            return;
+	        }
+	    }
+
+	    int e = getEnergy();
+
+	    int e2 = 0;
+
+	    if (this instanceof Dynamo) {
+
+	        int doubled = energy * 2;
+	        e2 = doubled;
+
+	    } else if (this instanceof MultiTasker) {
+
+	        int temp = energy + 200;
+	        e2 = temp;
+
+	    } else if (this instanceof Schemer) {
+
+	        int temp = energy + 10;
+	        e2 = temp;
+
+	    } else {
+
+	    		e2 = energy;
+	    }
+
+	    int newE = e + e2;
+
+	    if (newE <= 0) {
+
+	        setEnergy(Constants.MIN_ENERGY);
+
+	    } else {
+
+	        setEnergy(newE);
+	    }
 	}
 	
 	public void decrementConfusion()

@@ -29,10 +29,6 @@ public class MultiTasker extends Monster {
 			super.move(distance/2);
 	}
 	
-	public void setEnergy(int energy)
-	{
-		super.setEnergy(energy+200);
-	}
 	
 	public void executePowerupEffect(Monster opponentMonster)
 	{
