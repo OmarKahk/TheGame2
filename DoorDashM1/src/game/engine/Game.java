@@ -78,11 +78,11 @@ public class Game {
 	
 	private void switchTurn() 
 	{
-		
+		getCurrentOpponent();
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
-		if(getPlayer().getPosition() == 99 && getPlayer().getEnergy() >= 1000)
+		if(monster.getPosition() == 99 && monster.getEnergy() >= 1000)
 			return true;
 		else
 			return false;	
