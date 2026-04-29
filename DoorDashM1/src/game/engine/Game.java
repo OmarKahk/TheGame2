@@ -77,8 +77,11 @@ public class Game {
 	
 	
 	private void switchTurn() 
-	{
-		getCurrentOpponent();
+	{ 
+		if (current == player)
+			current = opponent;
+		else
+			current = player;
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
