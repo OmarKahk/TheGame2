@@ -20,7 +20,7 @@ public class Schemer extends Monster {
 		 }
 		 else
 		 {
-			 target.setEnergy(getEnergy()-Constants.SCHEMER_STEAL);
+			 target.alterEnergy(-Constants.SCHEMER_STEAL);
 			 return Constants.SCHEMER_STEAL;
 		 }
 	 }
@@ -36,7 +36,7 @@ public class Schemer extends Monster {
 		 total += stealEnergyFrom(opponentMonster);
 		 for(int i = 0; i<Board.getStationedMonsters().size();i++)
 		 {
-			 total += stealEnergyFrom(Board.getStationedMonsters().get(i));
+			 total += stealEnergyFrom((Monster)Board.getStationedMonsters().get(i));
 		 }
 		 this.alterEnergy(total);
 	 }
