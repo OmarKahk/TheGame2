@@ -72,20 +72,17 @@ public class Board {
 	}
 	
 	public void initializeBoard(ArrayList<Cell> specialCells) {
-
-	    // 1. Fill board with normal cells
+		
 	    for (int i = 0; i < 100; i++) {
 	        setCell(i, new Cell("Normal"));
 	    }
 
-	    // 2. Place DoorCells (must alternate SCARER / LAUGHER)
 	    int doorPtr = 0;
 	    for (int i = 1; i < 100; i += 2) {
 	        setCell(i, specialCells.get(doorPtr++));
 	    }
 
-	    // 3. Place Transport Cells (DO NOT group by type!)
-	    int transportPtr = 50; // doors = first 50 lines in CSV
+	    int transportPtr = 50; 
 
 	    for (int i = 0; i < Constants.CONVEYOR_CELL_INDICES.length; i++) {
 	        setCell(Constants.CONVEYOR_CELL_INDICES[i], specialCells.get(transportPtr++));
@@ -95,12 +92,10 @@ public class Board {
 	        setCell(Constants.SOCK_CELL_INDICES[i], specialCells.get(transportPtr++));
 	    }
 
-	    // 4. CardCells (NOT from CSV)
 	    for (int i = 0; i < Constants.CARD_CELL_INDICES.length; i++) {
 	        setCell(Constants.CARD_CELL_INDICES[i], new CardCell("Card"));
 	    }
 
-	    // 5. MonsterCells
 	    ArrayList<Monster> stationed = getStationedMonsters();
 
 	    for (int i = 0; i < Constants.MONSTER_CELL_INDICES.length; i++) {

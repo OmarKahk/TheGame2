@@ -14,10 +14,7 @@ public class ContaminationSock extends TransportCell implements CanisterModifier
 	
 	
 	public void onLand(Monster landingMonster, Monster opponentMonster) {
-
 		transport(landingMonster);
-	
-		
 	}
 	
 	public void transport(Monster monster) {
@@ -26,19 +23,12 @@ public class ContaminationSock extends TransportCell implements CanisterModifier
 				monster.setShielded(false);
 			else
 				modifyCanisterEnergy(monster, -Constants.SLIP_PENALTY);
-				
-			
 	}
 
-
-	
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
 		monster.alterEnergy(canisterValue);
 		
 	}
-	
-	
-	
 
 }
 
