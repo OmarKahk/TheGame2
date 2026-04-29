@@ -85,7 +85,6 @@ public class Game {
 	
 	private void switchTurn() 
 	{
-<<<<<<< HEAD
 		if(current == player)
 			this.current = opponent;
 		else
@@ -104,10 +103,8 @@ public class Game {
 		{
 			current.move(rollDice());
 		}
-		
-=======
 		getCurrentOpponent();
->>>>>>> f98b8a8e1ccaf3ebddf5662f463210555a2015a7
+
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
