@@ -60,7 +60,10 @@ public class Game {
 	
 	private Monster getCurrentOpponent()
 	{
-		return opponent;
+		if(current == player)
+			return opponent;
+		else
+			return player;
 	}
 	
 	private int rollDice()
@@ -71,20 +74,23 @@ public class Game {
 	
 	public void usePowerup() throws OutOfEnergyException
 	{
-		boolean f = false;
-		if(getCurrent().getEnergy()>Constants.POWERUP_COST)
+	
+		if(getCurrent().getEnergy()>=Constants.POWERUP_COST)
 		{
-			f = true;
-			getCurrent().executePowerupEffect(getCurrent());
-		}
-		if(f)
+			getCurrent().executePowerupEffect(getCurrentOpponent());
 			getCurrent().setEnergy(getCurrent().getEnergy()-Constants.POWERUP_COST);
+		}
+	
+			
 	}
 	
 	
 	private void switchTurn() 
 	{
-		getCurrentOpponent();
+		if(current == player)
+			this.current = opponent;
+		else
+			this.current = player;
 	}
 	
 	private boolean checkWinCondition(Monster monster) {
