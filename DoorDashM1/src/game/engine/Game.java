@@ -76,6 +76,7 @@ public class Game {
 		{
 			f = true;
 			getCurrent().executePowerupEffect(getCurrent());
+			
 		}
 		if(f)
 			getCurrent().setEnergy(getCurrent().getEnergy()-Constants.POWERUP_COST);
