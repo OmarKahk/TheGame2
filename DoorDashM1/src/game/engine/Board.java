@@ -1,6 +1,7 @@
 package game.engine;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import game.engine.cards.Card;
 import game.engine.cells.*;
@@ -16,7 +17,7 @@ public class Board {
 	public Board(ArrayList<Card> readCards) {
 		this.boardCells = new Cell[Constants.BOARD_ROWS][Constants.BOARD_COLS];
 		stationedMonsters = new ArrayList<Monster>();
-		originalCards = readCards;
+		originalCards = new ArrayList<Card>(readCards);
 		cards = new ArrayList<Card>();
 		setCardsByRarity() ;
 		reloadCards();	}
@@ -70,40 +71,62 @@ public class Board {
 		int[] a = indexToRowCol(index);
 		boardCells[a[0]][a[1]] = cell;
 	}
-	
 	public void initializeBoard(ArrayList<Cell> specialCells) {
-		
-	    for (int i = 0; i < 100; i++) {
-	        setCell(i, new Cell("Normal"));
+
+	    int specialIndex = 0;
+
+	    // Step 1:
+	    // Even indices -> normal cells
+	    // Odd indices -> special cells (DoorCells)
+	    for (int i = 0; i < Constants.BOARD_SIZE; i++) {
+
+	        if (i % 2 == 0) {
+	            setCell(i, new Cell("Normal")); // FIX HERE
+	        }
+	        else {
+	            setCell(i, specialCells.get(specialIndex));
+	            specialIndex++;
+	        }
 	    }
-
-	    int doorPtr = 0;
-	    for (int i = 1; i < 100; i += 2) {
-	        setCell(i, specialCells.get(doorPtr++));
-	    }
-
-	    int transportPtr = 50; 
-
+	    
+	 // alternating Conveyor then Sock
 	    for (int i = 0; i < Constants.CONVEYOR_CELL_INDICES.length; i++) {
-	        setCell(Constants.CONVEYOR_CELL_INDICES[i], specialCells.get(transportPtr++));
+
+	        // conveyor first
+	        setCell(
+	            Constants.CONVEYOR_CELL_INDICES[i],
+	            specialCells.get(specialIndex)
+	        );
+	        specialIndex++;
+
+	        // then sock
+	        setCell(
+	            Constants.SOCK_CELL_INDICES[i],
+	            specialCells.get(specialIndex)
+	        );
+	        specialIndex++;
 	    }
 
-	    for (int i = 0; i < Constants.SOCK_CELL_INDICES.length; i++) {
-	        setCell(Constants.SOCK_CELL_INDICES[i], specialCells.get(transportPtr++));
-	    }
-
+	    // Step 4: card cells
 	    for (int i = 0; i < Constants.CARD_CELL_INDICES.length; i++) {
-	        setCell(Constants.CARD_CELL_INDICES[i], new CardCell("Card"));
+	        int index = Constants.CARD_CELL_INDICES[i];
+	        setCell(index, new CardCell("Card Cell"));
 	    }
 
-	    ArrayList<Monster> stationed = getStationedMonsters();
-
+	    // Step 5: monster cells
 	    for (int i = 0; i < Constants.MONSTER_CELL_INDICES.length; i++) {
-	        MonsterCell mc = new MonsterCell("Monster", stationed.get(i));
-	        setCell(Constants.MONSTER_CELL_INDICES[i], mc);
+	        int index = Constants.MONSTER_CELL_INDICES[i];
+
+	        if (i < stationedMonsters.size()) {
+	            Monster monster = stationedMonsters.get(i);
+	            monster.setPosition(index);
+	            setCell(index, new MonsterCell(monster.getName(), monster));
+	        } else {
+	            // still place a valid monster cell if no stationed monsters exist
+	            setCell(index, new MonsterCell("Monster Cell", null));
+	        }
 	    }
 	}
-	
 	private  void  setCardsByRarity()
 	{
 		ArrayList<Card> a = new ArrayList<Card>();
@@ -123,13 +146,12 @@ public class Board {
 		Card c = cards.remove(0);
 		return c;
 	}
-	public static  void  reloadCards()
-	{
-		for(int i=0;i<originalCards.size();i++)
-		{
-			cards.add(originalCards.get(i));
-		}
+	public static void reloadCards() {
+	    cards = new ArrayList<Card>(originalCards);
+	    Collections.shuffle(cards);
 	}
+	
+	
 	public void  moveMonster(Monster  currentMonster,  int  roll,  Monster  opponentMonster) throws  InvalidMoveException
 	{
 		int position = currentMonster.getPosition();

@@ -14,14 +14,31 @@ public class MonsterCell extends Cell {
 		return cellMonster;
 	}
 	
+	
+	@Override
 	public void onLand(Monster landingMonster, Monster opponentMonster) {
-		if(landingMonster.getRole() == this.getCellMonster().getRole())
-			landingMonster.executePowerupEffect(opponentMonster);
-		else if (landingMonster.getEnergy() > this.getCellMonster().getEnergy()) {
-			int temp = landingMonster.getEnergy();
-			if(landingMonster.isShielded() == false)
-				landingMonster.setEnergy(this.getCellMonster().getEnergy());
-			this.getCellMonster().setEnergy(temp);
-		}
+
+	    this.setMonster(landingMonster);
+
+	    // Same role → free powerup
+	    if (landingMonster.getRole() == cellMonster.getRole()) {
+	        landingMonster.executePowerupEffect(opponentMonster);
+	        return;
+	    }
+
+	    // Different role → landing has more energy
+	    if (landingMonster.getEnergy() > cellMonster.getEnergy()) {
+
+	        int landingEnergy = landingMonster.getEnergy();
+	        int cellEnergy = cellMonster.getEnergy();
+
+	        // landing monster loses energy down to cell monster's old value
+	        // shield respected
+	        landingMonster.alterEnergy(-(landingEnergy - cellEnergy));
+
+	        // cell monster gains same amount
+	        // passive effects MUST apply
+	        cellMonster.alterEnergy(landingEnergy - cellEnergy);
+	    }
 	}
 }

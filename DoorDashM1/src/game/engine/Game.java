@@ -24,6 +24,10 @@ public class Game {
 		
 		this.player = selectRandomMonsterByRole(playerRole);
 		this.opponent = selectRandomMonsterByRole(playerRole == Role.SCARER ? Role.LAUGHER : Role.SCARER);
+		allMonsters.remove(player);
+		allMonsters.remove(opponent);
+
+		Board.setStationedMonsters(new ArrayList<>(allMonsters));
 		this.current = player;
 	}
 	
@@ -52,11 +56,12 @@ public class Game {
 	}
 	
 	private Monster selectRandomMonsterByRole(Role role) {
-		Collections.shuffle(allMonsters);
-	    return allMonsters.stream()
-	    		.filter(m -> m.getRole() == role)
-	    		.findFirst()
-	    		.orElse(null);
+	    for (Monster m : allMonsters) {
+	        if (m.getRole() == role) {
+	            return m;
+	        }
+	    }
+	    return null;
 	}
 	
 	private Monster getCurrentOpponent()
@@ -73,13 +78,13 @@ public class Game {
 		return (int)x;
 	}
 	
-	public void usePowerup() throws OutOfEnergyException
-	{	
-		if(getCurrent().getEnergy()>=Constants.POWERUP_COST)
-		{
-			getCurrent().executePowerupEffect(getCurrentOpponent());	
-			getCurrent().setEnergy(getCurrent().getEnergy() - 500);
-		}
+	public void usePowerup() throws OutOfEnergyException {
+	    if (current.getEnergy() < Constants.POWERUP_COST) {
+	        throw new OutOfEnergyException();
+	    }
+
+	    current.executePowerupEffect(getCurrentOpponent());
+	    current.alterEnergy(-Constants.POWERUP_COST);
 	}
 	
 	
@@ -91,22 +96,16 @@ public class Game {
 			this.current = player;
 	}
 	
-	public void playTurn() throws InvalidMoveException
-	{
-		if(this.current.isFrozen()==true)
-		{
-			current.setFrozen(false);
-			switchTurn();
-			return;
-		}
-		else
-		{
-			current.move(rollDice());
-		}
-		getCurrentOpponent();
+	public void playTurn() throws InvalidMoveException {
+	    if (current.isFrozen()) {
+	        current.setFrozen(false);
+	        switchTurn();
+	        return;
+	    }
 
+	    current.move(rollDice());
+	    switchTurn();
 	}
-	
 	private boolean checkWinCondition(Monster monster) {
 		if(monster.getPosition() == 99 && monster.getEnergy() >= 1000)
 			return true;
@@ -115,12 +114,13 @@ public class Game {
 	}
 	
 	public Monster getWinner() {
-		if(checkWinCondition(getPlayer()) == true)
-			return getPlayer();
-		else if(checkWinCondition(getOpponent()) == true)
-			return getOpponent();
-		else
-			return null;
+	    if (checkWinCondition(player))
+	        return player;
+
+	    if (checkWinCondition(opponent))
+	        return opponent;
+
+	    return null;
 	}
 	
 }
