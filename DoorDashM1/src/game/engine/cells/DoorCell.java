@@ -36,48 +36,51 @@ public class DoorCell extends Cell implements CanisterModifier {
 	}
 	
 	public void onLand(Monster landingMonster, Monster OpponentMonster) {
-		if(isActivated())
-			return;
+		this.setMonster(landingMonster);
 		if(!isActivated()) {
-			if(this.role == landingMonster.getRole()) {
-				modifyCanisterEnergy(landingMonster, this.getEnergy());
-				ArrayList<Monster> a = Board.getStationedMonsters();
-				for(int i = 0; i<a.size(); i++) {
-					if(a.get(i).getRole() == landingMonster.getRole())
-						modifyCanisterEnergy(a.get(i), this.getEnergy());
-				}
-			}
-			
-			else {
-				if(landingMonster.isShielded()) {
+			boolean tmp = false;
+			if(landingMonster.getRole()!=this.getRole())
+				if(landingMonster.isShielded())
+				{
 					landingMonster.setShielded(false);
 					return;
 				}
-					modifyCanisterEnergy(landingMonster, -this.getEnergy());
-					ArrayList<Monster> a = Board.getStationedMonsters();
-					for(int i = 0; i<Board.getStationedMonsters().size(); i++) {
-						if(a.get(i).getRole() == landingMonster.getRole())
-							modifyCanisterEnergy(a.get(i), -this.getEnergy());
-					}
+			ArrayList<Monster> a = Board.getStationedMonsters();
+			int e1 = landingMonster.getEnergy();
+			modifyCanisterEnergy(landingMonster, this.getEnergy());
+			if(e1!=landingMonster.getEnergy())
+				tmp = true;
+			for(int i = 0; i<a.size(); i++) {
+				int e = a.get(i).getEnergy();
+				if(a.get(i).getRole() == landingMonster.getRole())
+				{
+					modifyCanisterEnergy(a.get(i), this.getEnergy());
+					if(e!=a.get(i).getEnergy())
+						tmp = true;
+				}
 			}
-			setActivated(true);
+			if(tmp == true)
+			{
+				setActivated(true);
+			}
 		}
 	}
+	
 
 	
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
 		if(this.getRole() == monster.getRole()) {
 			monster.alterEnergy(canisterValue);
 		}
-		else if(monster.isShielded())
-			monster.setShielded(false);
-		else
-			monster.alterEnergy(canisterValue);
+		else {
+			if(monster.isShielded())
+			{
+				monster.setShielded(false);
+				return;
+			}
+			else 
+				monster.alterEnergy(-canisterValue);
+		}
 		
 	}
-	
-	
-
-	
-
 }
