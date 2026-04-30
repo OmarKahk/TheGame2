@@ -19,7 +19,7 @@ public class Game {
 	
 	public Game(Role playerRole) throws IOException {
 		this.board = new Board(DataLoader.readCards());
-		this.board.initializeBoard(DataLoader.readCells());
+		
 		this.allMonsters = DataLoader.readMonsters();
 		
 		this.player = selectRandomMonsterByRole(playerRole);
@@ -102,6 +102,7 @@ public class Game {
 	        switchTurn();
 	        return;
 	    }
+
 	    current.move(rollDice());
 	    switchTurn();
 	}
