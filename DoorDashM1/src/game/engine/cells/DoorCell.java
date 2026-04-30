@@ -38,6 +38,8 @@ public class DoorCell extends Cell implements CanisterModifier {
 	public void onLand(Monster landingMonster, Monster OpponentMonster) {
 		this.setMonster(landingMonster);
 		boolean tmp = false;
+		if(isActivated())
+			return;
 		if(landingMonster.getRole()!=this.getRole())
 			if(landingMonster.isShielded())
 			{
