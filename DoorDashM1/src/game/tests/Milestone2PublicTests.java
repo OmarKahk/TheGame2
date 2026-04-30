@@ -2311,7 +2311,7 @@ public class Milestone2PublicTests {
 			Field cellMonster = Class.forName(cellPath).getDeclaredField("monster");
 			cellMonster.setAccessible(true);
 			Object cellMonsterValue = cellMonster.get(doorCell);
-			
+			System.out.println(cellMonsterValue);
 			assertEquals("The monster of the doorCell should be the current landing monster",currentPlayer,cellMonsterValue);
 			assertEquals("Once a door cell has been used, landing on it again should not affect the landing monster",landingMonsterEnergy,getEnergy.invoke(currentPlayer));
 			

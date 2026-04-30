@@ -118,38 +118,28 @@ public abstract class Monster implements Comparable<Monster> {
 	            return;
 	        }
 	    }
-
 	    int e = getEnergy();
-
 	    int e2 = 0;
-
 	    if (this instanceof Dynamo) {
-
 	        int doubled = energy * 2;
 	        e2 = doubled;
-
-	    } else if (this instanceof MultiTasker) {
-
+	    }
+	    else if (this instanceof MultiTasker) {
 	        int temp = energy + 200;
 	        e2 = temp;
-
-	    } else if (this instanceof Schemer) {
-
-	        int temp = energy + 10;
+	    }
+	    else if (this instanceof Schemer) {
+	    		int temp = energy + 10;
 	        e2 = temp;
-
-	    } else {
-
+	    }
+	    else {
 	    		e2 = energy;
 	    }
-
 	    int newE = e + e2;
-
 	    if (newE <= 0) {
-
 	        setEnergy(Constants.MIN_ENERGY);
-
-	    } else {
+	    }
+	    else {
 
 	        setEnergy(newE);
 	    }

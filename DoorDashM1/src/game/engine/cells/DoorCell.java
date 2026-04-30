@@ -35,57 +35,33 @@ public class DoorCell extends Cell implements CanisterModifier {
 		this.activated = isActivated;
 	}
 	
-	// DoorCell.java
-
-	@Override
-	public void onLand(Monster landingMonster, Monster opponentMonster) {
-
-	    // ALWAYS set the landing monster first
-	    super.onLand(landingMonster, opponentMonster);
-
-	    // if already activated → no more effects
-	    if (activated) {
-	        return;
-	    }
-
-	    if (landingMonster == null) {
-	        return;
-	    }
-
-	    int value;
-
-	    /*
-	     If landing monster role matches door role:
-	     gain energy
-
-	     Otherwise:
-	     lose energy
-	    */
-
-	    if (landingMonster.getRole() == this.role) {
-	        value = energy;
-	    } else {
-	        value = -energy;
-	    }
-
-	    // landing monster (shield respected)
-	    landingMonster.alterEnergy(value);
-
-	    // same-role stationed monsters only
-	    ArrayList<Monster> stationed = Board.getStationedMonsters();
-
-	    if (stationed != null) {
-	        for (Monster m : stationed) {
-	            if (m != null && m.getRole() == landingMonster.getRole()) {
-	                m.alterEnergy(value);
-	            }
-	        }
-	    }
-
-	    // activate only if actual gain/loss happened
-	    if (value != 0) {
-	        activated = true;
-	    }
+	public void onLand(Monster landingMonster, Monster OpponentMonster) {
+		this.setMonster(landingMonster);
+		boolean tmp = false;
+		if(landingMonster.getRole()!=this.getRole())
+			if(landingMonster.isShielded())
+			{
+				landingMonster.setShielded(false);
+				return;
+			}
+		ArrayList<Monster> a = Board.getStationedMonsters();
+		int e1 = landingMonster.getEnergy();
+		modifyCanisterEnergy(landingMonster, this.getEnergy());
+		if(e1!=landingMonster.getEnergy())
+			tmp = true;
+		for(int i = 0; i<a.size(); i++) {
+			int e = a.get(i).getEnergy();
+			if(a.get(i).getRole() == landingMonster.getRole())
+			{
+				modifyCanisterEnergy(a.get(i), this.getEnergy());
+				if(e!=a.get(i).getEnergy())
+					tmp = true;
+			}
+		}
+		if(tmp == true)
+		{
+			setActivated(true);
+		}
 	}
 	public void modifyCanisterEnergy(Monster monster, int canisterValue) {
 		if(this.getRole() == monster.getRole()) {

@@ -15,34 +15,24 @@ public class Schemer extends Monster {
 	 
 	private int stealEnergyFrom(Monster target) {
 	    int stolen = Math.min(target.getEnergy(), Constants.SCHEMER_STEAL);
-
-	    // target loses energy immediately
-	    target.setEnergy(target.getEnergy() - stolen);
-
+	    target.alterEnergy(-stolen);
 	    return stolen;
 	}
 
-	@Override
 	public void executePowerupEffect(Monster opponentMonster) {
 	    int totalStolen = 0;
-
-	    // steal from opponent
 	    totalStolen += stealEnergyFrom(opponentMonster);
-
-	    // steal from all stationed monsters
-	    ArrayList<Monster> stationed = Board.getStationedMonsters();
-
-	    if (stationed != null) {
-	        for (Monster m : stationed) {
+	    ArrayList<Monster> s = Board.getStationedMonsters();
+	    if (s != null) {
+	        for (int i =0;i<s.size();i++) {
+	        		Monster m = s.get(i);
 	            if (m != null) {
 	                totalStolen += stealEnergyFrom(m);
 	            }
 	        }
 	    }
-
-	    // IMPORTANT:
-	    // use setEnergy(), NOT alterEnergy()
-	    this.setEnergy(this.getEnergy() + totalStolen);
+	    this.alterEnergy(totalStolen);
+	    
 	}
 }
 
