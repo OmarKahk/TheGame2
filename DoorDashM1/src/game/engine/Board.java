@@ -74,12 +74,7 @@ public class Board {
 	public void initializeBoard(ArrayList<Cell> specialCells) {
 
 	    int specialIndex = 0;
-
-	    // Step 1:
-	    // Even indices -> normal cells
-	    // Odd indices -> special cells (DoorCells)
 	    for (int i = 0; i < Constants.BOARD_SIZE; i++) {
-
 	        if (i % 2 == 0) {
 	            setCell(i, new Cell("Normal")); // FIX HERE
 	        }
@@ -89,31 +84,19 @@ public class Board {
 	        }
 	    }
 	    
-	 // alternating Conveyor then Sock
 	    for (int i = 0; i < Constants.CONVEYOR_CELL_INDICES.length; i++) {
-
-	        // conveyor first
-	        setCell(
-	            Constants.CONVEYOR_CELL_INDICES[i],
-	            specialCells.get(specialIndex)
-	        );
+	    	
+	        setCell(Constants.CONVEYOR_CELL_INDICES[i],specialCells.get(specialIndex));
 	        specialIndex++;
-
-	        // then sock
-	        setCell(
-	            Constants.SOCK_CELL_INDICES[i],
-	            specialCells.get(specialIndex)
-	        );
+	        setCell(Constants.SOCK_CELL_INDICES[i],specialCells.get(specialIndex));
 	        specialIndex++;
 	    }
 
-	    // Step 4: card cells
 	    for (int i = 0; i < Constants.CARD_CELL_INDICES.length; i++) {
 	        int index = Constants.CARD_CELL_INDICES[i];
 	        setCell(index, new CardCell("Card Cell"));
 	    }
 
-	    // Step 5: monster cells
 	    for (int i = 0; i < Constants.MONSTER_CELL_INDICES.length; i++) {
 	        int index = Constants.MONSTER_CELL_INDICES[i];
 
@@ -122,7 +105,6 @@ public class Board {
 	            monster.setPosition(index);
 	            setCell(index, new MonsterCell(monster.getName(), monster));
 	        } else {
-	            // still place a valid monster cell if no stationed monsters exist
 	            setCell(index, new MonsterCell("Monster Cell", null));
 	        }
 	    }
